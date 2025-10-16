@@ -1,0 +1,31 @@
+---
+name: Check building the docker image
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+
+env:
+  IMAGE_NAME: power-bomberman
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Install qemu dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-user-static
+      - name: Buildah Build
+        id: build-image
+        uses: redhat-actions/buildah-build@v2.13
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          tags: latest ${{ github.run_id }}
+          archs: amd64, arm64
+          context: src/
+          containerfiles: |
+            src/Containerfile
