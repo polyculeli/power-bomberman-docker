@@ -21,10 +21,7 @@ RUN apt-get update && \
 
 WORKDIR /pbserver
 
-RUN useradd --create-home --shell /bin/bash pbuser && \
-chown -R pbuser:pbuser /pbserver
-
-copy --from=builder --chown=pbuser:pbuser --chmod=550 /pbserver /pbserver/
+copy --from=builder /pbserver /pbserver/
 
 COPY entrypoint.sh entrypoint.sh
 
