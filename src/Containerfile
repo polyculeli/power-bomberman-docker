@@ -1,0 +1,31 @@
+FROM debian:13.1-slim AS builder
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    megatools unzip && \
+    apt-get clean
+
+WORKDIR /pbserver
+
+RUN megadl https://mega.nz/file/mPZSgS4T#3vnm7zR2Tz3ZANt0tnFaorMy4f7j9cpVjgRvMQI0qeo && \
+    unzip powerbomberman077c_server.zip && \
+    rm powerbomberman077c_server.zip
+
+
+FROM debian:13.1-slim AS main
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    mono-devel && \
+    apt-get clean
+
+WORKDIR /pbserver
+
+RUN useradd --create-home --shell /bin/bash pbuser && \
+chown -R pbuser:pbuser /pbserver
+
+copy --from=builder --chown=pbuser:pbuser --chmod=550 /pbserver /pbserver/
+
+COPY entrypoint.sh entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
