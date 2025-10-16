@@ -14,14 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       - name: Install qemu dependency
         run: |
           sudo apt-get update
           sudo apt-get install -y qemu-user-static
       - name: Buildah Build
         id: build-image
-        uses: redhat-actions/buildah-build@v2.13
+        uses: redhat-actions/buildah-build@7a95fa7ee0f02d552a32753e7414641a04307056 # v2.13
         with:
           image: ${{ env.IMAGE_NAME }}
           tags: latest ${{ github.run_id }}
