@@ -16,12 +16,17 @@ FROM debian:13.1-slim@sha256:1caf1c703c8f7e15dcf2e7769b35000c764e6f50e4d7401c355
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    mono-devel && \
+    mono-devel tmux && \
     apt-get clean
+
+RUN mkdir -p /pbserver
 
 WORKDIR /pbserver
 
 copy --from=builder /pbserver /pbserver/
+
+RUN chmod -R 777 /pbserver/ && \
+    chown -R 1000:1000 /pbserver
 
 COPY entrypoint.sh entrypoint.sh
 

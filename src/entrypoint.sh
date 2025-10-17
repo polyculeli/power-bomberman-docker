@@ -29,4 +29,5 @@ maxRooms = ${PB_MAX_ROOMS}
 latencyMode = ${PB_LATENCY_MODE}
 EOF
 
-mono Server.exe
+tmux new-session -d -s pb-session "mono Server.exe"
+exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
