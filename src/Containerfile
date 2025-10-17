@@ -25,4 +25,6 @@ copy --from=builder /pbserver /pbserver/
 
 COPY entrypoint.sh entrypoint.sh
 
+EXPOSE 64640
+
 ENTRYPOINT ["./entrypoint.sh"]
