@@ -1,0 +1,14 @@
+[Unit]
+
+[Service]
+Restart=on-failure
+
+[Container]
+AutoUpdate=registry
+ContainerName=power-bomberman
+Image=docker.io/alicianibbles/power-bomberman:latest
+EnvironmentFile=/srv/power-bomberman/power-bomberman.env
+Network=power-bomberman.network
+HostName=power-bomberman.local
+PublishPort=64640:64640
+Pull=newer
