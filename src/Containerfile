@@ -1,4 +1,4 @@
-FROM debian:13.2-slim@sha256:18764e98673c3baf1a6f8d960b5b5a1ec69092049522abac4e24a7726425b016 AS builder
+FROM debian:13.3-slim@sha256:e9f1b0bda36daad09fcd6779f7af47191dbee4ff52f8903fffd15240eb986bd8 AS builder
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -12,7 +12,7 @@ RUN megadl https://mega.nz/file/mPZSgS4T#3vnm7zR2Tz3ZANt0tnFaorMy4f7j9cpVjgRvMQI
     rm powerbomberman077c_server.zip
 
 
-FROM debian:13.2-slim@sha256:18764e98673c3baf1a6f8d960b5b5a1ec69092049522abac4e24a7726425b016 AS main
+FROM debian:13.3-slim@sha256:e9f1b0bda36daad09fcd6779f7af47191dbee4ff52f8903fffd15240eb986bd8 AS main
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
